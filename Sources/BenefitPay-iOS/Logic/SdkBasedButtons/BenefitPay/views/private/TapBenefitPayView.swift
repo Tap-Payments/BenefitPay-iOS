@@ -273,6 +273,7 @@ Hj+N6UWFOYK98Xi+sQIDAQAB
             var updatedConfigurations = configs
             updatedConfigurations["headers"] = UrlBasedUtils.generateApplicationHeader(headersEncryptionPublicKey: updatedConfigurations.headersEncryptionPublicKey() ?? "")
             updatedConfigurations["redirect"] = ["url":payButtonType.tapRedirectionSchemeUrl()]
+            updatedConfigurations["autoDissmess"] = true
             currentlyLoadedConfigurations = updatedConfigurations
             try UrlBasedUtils.generatePayButtonSdkURL(from: updatedConfigurations, payButtonType: payButtonType) { buttonUrl, error in
                 DispatchQueue.main.async {

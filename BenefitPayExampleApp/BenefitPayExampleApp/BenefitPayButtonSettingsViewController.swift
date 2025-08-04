@@ -98,6 +98,13 @@ class BenefitPayButtonSettingsViewController: FormViewController {
                 self.update(dictionary: &self.config!, at: ["transaction","amount"], with: row.value ?? 1.0)
             }
         }
+        <<< SwitchRow("transaction.autoDissmess"){ row in
+            row.title = "autoDissmess"
+            row.value = (config! as NSDictionary).value(forKeyPath: "transaction.autoDissmess") as? Bool ?? false
+            row.onChange { row in
+                self.update(dictionary: &self.config!, at: ["transaction","autoDissmess"], with: row.value ?? "")
+            }
+        }
         
         form +++ Section("merchant")
         <<< TextRow("merchant.id"){ row in

@@ -265,6 +265,8 @@ Hj+N6UWFOYK98Xi+sQIDAQAB
         //updatedDict["edges"] = ((configDict["interface"] as? [String:Any])?["edges"] as? String) ?? "curved"
         updatedDict["platform"] = "mobile"
         updatedDict["paymentMethod"] = PayButtonTypeEnum.BenefitPay.toString().lowercased()
+        let autoDismiss: Bool = ((configDict["transaction"] as? [String:Any])?["autoDismiss"] as? Bool) ?? false
+        updatedDict["autoDissmess"] = autoDismiss
         return updatedDict as! [String : Any]
     }
     

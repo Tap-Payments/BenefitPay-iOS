@@ -21,7 +21,8 @@ class BenefitPayButtonExample: UIViewController {
         //"data-testid": "TapButton",
         "transaction": [
             "amount": 0.1,
-            "currency": "BHD"
+            "currency": "BHD",
+            "autoDissmess": true
         ],
         "reference": [
             "order":"ord",

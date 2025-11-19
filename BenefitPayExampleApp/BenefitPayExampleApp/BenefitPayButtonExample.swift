@@ -22,7 +22,7 @@ class BenefitPayButtonExample: UIViewController {
         "transaction": [
             "amount": 0.1,
             "currency": "BHD",
-            "autoDissmess": true
+            "autoDissmess": false
         ],
         "reference": [
             "order":"ord",

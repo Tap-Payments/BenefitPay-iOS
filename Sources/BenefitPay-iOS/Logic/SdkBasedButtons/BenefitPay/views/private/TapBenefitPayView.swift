@@ -14,7 +14,7 @@ internal class BenefitPayButton: PayButtonBaseView {
     /// The scheme prefix used by benefit pay sdk to show the benefit pay popup
     let benefitSDKUrlScheme:String = "https://benefit-checkout"
     /// The scheme prefix used by benefit pay sdk to show the benefit pay popup
-    let benefitPayAppUrlScheme:String = "https://tbenefituser.page"
+    let benefitPayAppUrlScheme:String = "benefitinapp"
     /// The web view used to render the benefit pay button
     internal var webView: WKWebView = .init()
     /// keeps a hold of the loaded web sdk configurations url
@@ -119,7 +119,7 @@ Hj+N6UWFOYK98Xi+sQIDAQAB
         preferences.javaScriptEnabled = true
         preferences.javaScriptCanOpenWindowsAutomatically = true
         let configuration = WKWebViewConfiguration()
-        configuration.defaultWebpagePreferences.preferredContentMode = .desktop
+        configuration.defaultWebpagePreferences.preferredContentMode = .mobile
         configuration.setURLSchemeHandler(self, forURLScheme: "tapBenefitPayWebSDK");
 
         webView = WKWebView(frame: .zero, configuration: configuration)

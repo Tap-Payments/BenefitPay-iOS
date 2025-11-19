@@ -79,7 +79,11 @@ internal extension BenefitPayButton {
         }
         benefitGifLoader?.tag = 2
         view.addSubview(benefitGifLoader!)
-        
+        if #available(iOS 16.4, *) {
+            webView.isInspectable = true
+        } else {
+            // Fallback on earlier versions
+        }
         // Define the constrains of the web view to be full screen
         let top  = webView.topAnchor.constraint(equalTo: view.topAnchor)
         let left = webView.leftAnchor.constraint(equalTo: view.leftAnchor)

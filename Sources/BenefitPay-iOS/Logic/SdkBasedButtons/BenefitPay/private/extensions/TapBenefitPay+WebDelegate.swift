@@ -38,13 +38,25 @@ extension BenefitPayButton:WKNavigationDelegate {
         
         guard let url = navigationAction.request.url else { return }
         
-        if url.absoluteString.lowercased().hasPrefix(payButtonType.webSdkScheme()) {
-            print("navigationAction1", url.absoluteString)
+        let lowercasedAbsolute = url.absoluteString.lowercased()
+        if let scheme = url.scheme?.lowercased(),
+           scheme != "http",
+           scheme != "https" {
             action = .cancel
+            DispatchQueue.main.async {
+                print("BenefitPay deep link:", url.absoluteString)
+                _ = UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            return
+        }
+        
+        if lowercasedAbsolute.hasPrefix(payButtonType.webSdkScheme()) {
+            print("navigationAction1", url.absoluteString)
+            return
         }else{
             print("navigationAction2", url.absoluteString)
         }
-        
+                
         
         // In all cases when we get a feedback from the web view we will need to hide the loader if it is being displayed
         // Let us see if the web sdk is telling us something
@@ -175,17 +187,10 @@ extension BenefitPayButton:WKNavigationDelegate {
 extension BenefitPayButton:WKUIDelegate {
    
     public func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        let (viewController,web,_) = createBenefitPayWithAppPopupView()
-        
-        if let _ = navigationAction.request.url {
-            web.load(navigationAction.request)
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                //self.updateLoadingView(with: false)
-                if let topMost:UIViewController = UIApplication.shared.topViewController() {
-                    topMost.present(viewController, animated: true)
-                }
-            }
-        }
+        // BenefitPay web SDK triggers window.open to initiate the app redirect. Instead of
+        // presenting our own popup WKWebView, just load the request inside the existing web view.
+        guard navigationAction.targetFrame == nil else { return nil }
+        webView.load(navigationAction.request)
         return nil
     }
 }
